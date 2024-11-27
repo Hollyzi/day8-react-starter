@@ -1,15 +1,23 @@
-import CounterGroupGenerator from "./CounterGroupGenerator";
-import {useState} from "react";
+import { useEffect, useState } from "react";
 import CounterGroup from "./CounterGroup";
+import CounterGroupGenerator from "./CounterGroupGenerator";
+import CounterGroupSum from "./CounterGroupSum";
 
-const MultipleCounter=()=>{
-    const [outersize,setoutersize]=useState(0)
-    return(
+const MultipleCounter = () => {
+    const [outersize, setOutersize] = useState(0);
+    const [sum, setSum] = useState(0);
+
+    useEffect(() => {
+        setSum(0);
+    }, [outersize]);
+
+    return (
         <div>
-            <CounterGroupGenerator outersize={outersize} setoutersize={setoutersize}></CounterGroupGenerator>
-            <CounterGroup outersize={outersize}></CounterGroup>
-            {/*<CounterGroup outersize={outersize}>{outersize}</CounterGroup>*/}
+            <CounterGroupGenerator setOutersize={setOutersize} outersize={outersize} />
+            <CounterGroupSum sum={sum} setSum={setSum} />
+            <CounterGroup outersize={outersize} setSum={setSum} />
         </div>
-    )
-}
-export default MultipleCounter
+    );
+};
+
+export default MultipleCounter;

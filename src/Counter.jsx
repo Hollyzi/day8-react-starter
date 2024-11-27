@@ -1,19 +1,31 @@
-import {useState} from "react";
+import React, { useEffect, useState } from "react";
 
-const Counter=()=>{
-    const [number,setNumber]=useState(0)
-    const increaseNumber=()=>{
-        setNumber(number+1);
-    }
-    const decreaseNumber=()=>{
-        setNumber(number-1);
-    }
-    return(
+
+const Counter = (props) => {
+    const [number, setNumber] = useState(0);
+
+    const { outersize, setSum } = props;
+
+    useEffect(() => {
+        setNumber(0);
+    }, [outersize]);
+
+    const increase = () => {
+        setNumber((count) => count + 1);
+        setSum((sum) => sum + 1);
+    };
+    const decrease = () => {
+        setNumber((count) => count - 1);
+        setSum((sum) => sum - 1);
+    };
+
+    return (
         <div>
-            <button  onClick={increaseNumber}>+</button>
-            {number}
-            <button  onClick={decreaseNumber}>-</button>
+            <button onClick={increase}>+</button>
+            <span>{number}</span>
+            <button onClick={decrease}>-</button>
         </div>
-    )
-}
+    );
+};
+
 export default Counter;
